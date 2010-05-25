@@ -363,7 +363,7 @@ function user_delete($mode, $user_ids, $retain_username = true)
 	// Before we begin, we will remove the reports the user issued.
 	$sql = 'SELECT r.post_id, p.topic_id
 		FROM ' . REPORTS_TABLE . ' r, ' . POSTS_TABLE . ' p
-		WHERE ' $db->sql_in_set('r.user_id', $user_ids) . //r.user_id = ' . $user_id . '
+		WHERE ' . $db->sql_in_set('r.user_id', $user_ids) . //r.user_id = ' . $user_id . '
 			'
 			AND p.post_id = r.post_id';
 	$result = $db->sql_query($sql);
@@ -576,7 +576,7 @@ function user_delete($mode, $user_ids, $retain_username = true)
 
 	// Delete user log entries about this user
 	$sql = 'DELETE FROM ' . LOG_TABLE . '
-		WHERE ' $db->sql_in_set('user_id', $user_ids); //reportee_id = ' . $user_id;
+		WHERE ' . $db->sql_in_set('user_id', $user_ids); //reportee_id = ' . $user_id;
 	$db->sql_query($sql);
 
 	// Change user_id to anonymous for this users triggered events
@@ -641,7 +641,7 @@ function user_delete($mode, $user_ids, $retain_username = true)
 
 	$sql = 'UPDATE ' . PRIVMSGS_TABLE . '
 		SET author_id = ' . ANONYMOUS . '
-		WHERE ' $db->sql_in_set('author_id', $user_id);
+		WHERE ' . $db->sql_in_set('author_id', $user_id);
 	$db->sql_query($sql);
 
 	foreach ($undelivered_user as $_user_id => $ary)
